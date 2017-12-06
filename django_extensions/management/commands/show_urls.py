@@ -208,7 +208,7 @@ class Command(BaseCommand):
                         name = '{0}:{1}'.format(namespace, p.name)
                     else:
                         name = p.name
-                    pattern = p.pattern.describe() if isinstance(p, URLPattern) else p.regex.pattern
+                    pattern = str(p.pattern) if isinstance(p, URLPattern) else p.regex.pattern
                     views.append((p.callback, base + pattern, name))
                 except ViewDoesNotExist:
                     continue
@@ -221,7 +221,7 @@ class Command(BaseCommand):
                     _namespace = '{0}:{1}'.format(namespace, p.namespace)
                 else:
                     _namespace = (p.namespace or namespace)
-                pattern = p.pattern.describe() if isinstance(p, URLResolver) else p.regex.pattern
+                pattern = str(p.pattern) if isinstance(p, URLResolver) else p.regex.pattern
                 if isinstance(p, LocaleRegexURLResolver):
                     for langauge in self.LANGUAGES:
                         with translation.override(langauge[0]):
